@@ -1,0 +1,852 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "info",
+    "timestamp": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db",
+      "cache_id": "my_profile2",
+      "store_fakeip": true
+    },
+    "clash_api": {
+      "external_ui": "ui",
+      "external_controller": "0.0.0.0:9090",
+      "external_ui_download_detour": "Proxy",
+      "default_mode": "rule"
+    }
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "google",
+        "address": "tls://8.8.8.8",
+        "detour": "Proxy"
+      },
+      {
+        "tag": "fallback",
+        "address": "8.8.8.8",
+        "address_resolver": "google",
+        "detour": "Proxy"
+      },
+      {
+        "tag": "local-dns",
+        "address": "223.5.5.5",
+        "detour": "direct"
+      },
+      {
+        "tag": "block-dns",
+        "address": "rcode://success"
+      },
+      {
+        "tag": "Youtubedns",
+        "address": "8.8.8.8",
+        "detour": "Youtube"
+      },
+      {
+        "tag": "Telegramdns",
+        "address": "8.8.8.8",
+        "detour": "Telegram"
+      },
+      {
+        "tag": "Githubdns",
+        "address": "8.8.8.8",
+        "detour": "Github"
+      },
+      {
+        "tag": "Openaidns",
+        "address": "8.8.8.8",
+        "detour": "Openai"
+      },
+      {
+        "tag": "Netflixdns",
+        "address": "8.8.8.8",
+        "detour": "Netflix"
+      },
+      {
+        "tag": "Googledns",
+        "address": "8.8.8.8",
+        "detour": "Google"
+      },
+      {
+        "tag": "Directdns",
+        "address": "8.8.8.8",
+        "detour": "Direct"
+      }
+    ],
+    "rules": [
+      {
+        "outbound": "any",
+        "server": "local-dns"
+      },
+      {
+        "rule_set": [
+          "Youtube0"
+        ],
+        "server": "Youtubedns"
+      },
+      {
+        "rule_set": [
+          "Telegram1"
+        ],
+        "server": "Telegramdns"
+      },
+      {
+        "rule_set": [
+          "Github0"
+        ],
+        "server": "Githubdns"
+      },
+      {
+        "rule_set": [
+          "Openai0"
+        ],
+        "server": "Openaidns"
+      },
+      {
+        "rule_set": [
+          "Netflix0"
+        ],
+        "server": "Netflixdns"
+      },
+      {
+        "rule_set": [
+          "Google0"
+        ],
+        "server": "Googledns"
+      },
+      {
+        "rule_set": [
+          "Direct1"
+        ],
+        "server": "local-dns"
+      },
+      {
+        "query_type": [
+          "A"
+        ],
+        "rewrite_ttl": 1,
+        "server": "fallback"
+      }
+    ],
+    "strategy": "ipv4_only"
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "::",
+      "listen_port": 8888,
+      "sniff": true
+    },
+    {
+      "type": "tun",
+      "inet4_address": "172.19.0.1/30",
+      "stack": "system",
+      "sniff": true,
+      "auto_route": true,
+      "strict_route": true,
+      "gso": false,
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 8888
+        }
+      }
+    }
+  ],
+  "route": {
+    "rule_set": [
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Youtube0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/youtube.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Telegram0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geoip/telegram.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Telegram1",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/telegram.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Github0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/github.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Openai0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/openai.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Netflix0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/netflix.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Netflix1",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo-lite/geoip/netflix.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Google0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/google.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Direct0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geoip/cn.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Direct1",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/cn.srs"
+      }
+    ],
+    "rules": [
+      {
+        "protocol": "dns",
+        "outbound": "dns-out"
+      },
+      {
+        "port": 53,
+        "outbound": "dns-out"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 853
+          },
+          {
+            "network": "udp",
+            "port": 443
+          },
+          {
+            "protocol": "stun"
+          }
+        ],
+        "outbound": "block"
+      },
+      {
+        "rule_set": [
+          "Youtube0"
+        ],
+        "outbound": "Youtube"
+      },
+      {
+        "rule_set": [
+          "Telegram0",
+          "Telegram1"
+        ],
+        "outbound": "Telegram"
+      },
+      {
+        "rule_set": [
+          "Github0"
+        ],
+        "outbound": "Github"
+      },
+      {
+        "rule_set": [
+          "Openai0"
+        ],
+        "outbound": "Openai"
+      },
+      {
+        "rule_set": [
+          "Netflix0",
+          "Netflix1"
+        ],
+        "outbound": "Netflix"
+      },
+      {
+        "rule_set": [
+          "Google0"
+        ],
+        "outbound": "Google"
+      },
+      {
+        "rule_set": [
+          "Direct0",
+          "Direct1"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      }
+    ],
+    "auto_detect_interface": true,
+    "final": "Proxy"
+  },
+  "outbounds": [
+    {
+      "tag": "Proxy",
+      "outbounds": [
+        "🇭🇰 香港",
+        "🇯🇵 日本"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Youtube",
+      "outbounds": [
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Telegram",
+      "outbounds": [
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Github",
+      "outbounds": [
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Openai",
+      "outbounds": [
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Netflix",
+      "outbounds": [
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Google",
+      "outbounds": [
+        "Proxy",
+        "🇭🇰 香港",
+        "🇯🇵 日本"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "🇭🇰 香港",
+      "outbounds": [
+        "Az香港3 | 80 | WS |",
+        "Az香港2 | 80 | WS |"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇯🇵 日本",
+      "outbounds": [
+        "日本4 | 80 | WS |",
+        "日本1 | 80 | WS |",
+        "Az日本3 | 80 | WS |",
+        "Az日本 | 80 | WS |"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "type": "direct",
+      "tag": "➜ Direct"
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "tag": "剩余流量：195.71 GB",
+      "server": "127.0.0.1",
+      "server_port": 1,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "headers": {
+          "Host": "127.0.0.1"
+        },
+        "type": "ws",
+        "path": "/"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "套餐到期：长期有效",
+      "server": "127.0.0.1",
+      "server_port": 1,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "headers": {
+          "Host": "127.0.0.1"
+        },
+        "type": "ws",
+        "path": "/"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "去除1条不合适线路",
+      "server": "127.0.0.1",
+      "server_port": 1,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "headers": {
+          "Host": "127.0.0.1"
+        },
+        "type": "ws",
+        "path": "/"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "快游戏官网：https://www.kuxingseng-quick.top/ TG群：https://t.me/quick_tg",
+      "server": "127.0.0.1",
+      "server_port": 1,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "headers": {
+          "Host": "127.0.0.1"
+        },
+        "type": "ws",
+        "path": "/"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "所有HTTP、WS节点可自定义PATH 备用官网:https://www.qingzeyy.top/",
+      "server": "127.0.0.1",
+      "server_port": 1,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "alter_id": 0
+    },
+    {
+      "tag": "山东联通| 80 | WS |",
+      "server": "39.91.137.58",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "www.youku.com"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "河南移动 | 8888 | WS |",
+      "server": "111.6.43.42",
+      "server_port": 8888,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "www.youku.com"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "河南移动 | 80 | WS |",
+      "server": "111.6.43.42",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "www.youku.com"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "浙江电信 | 80 | TCP |",
+      "server": "110.42.38.10",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "alter_id": 0
+    },
+    {
+      "tag": "山东移动| 8081 | WS |",
+      "server": "120.220.19.73",
+      "server_port": 8081,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "a.189.cn"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "山东联通| 443 | TCP |",
+      "server": "39.91.137.58",
+      "server_port": 443,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "alter_id": 0
+    },
+    {
+      "tag": "山东移动ipv6 | 443 | TCP |",
+      "server": "2409:8c3c:1c00:11::20",
+      "server_port": 443,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "alter_id": 0
+    },
+    {
+      "tag": "浙江电信  | 443 | WS |",
+      "server": "110.42.38.10",
+      "server_port": 443,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "a.189.cn"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "河南移动 | 443 | TCP |",
+      "server": "111.6.43.42",
+      "server_port": 443,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "alter_id": 0
+    },
+    {
+      "tag": "台湾 | 80 | TCP |",
+      "server": "211.22.180.126",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "alter_id": 0
+    },
+    {
+      "tag": "Az香港3 | 80 | WS |",
+      "server": "hk1g.wi-fi-ai.com",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "tms.dingtalk.com"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "日本4 | 80 | WS |",
+      "server": "jp25g.wi-fi-ai.com",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "tms.dingtalk.com"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "韩国| 443 | Reality |",
+      "server": "kr.qingze-quick.buzz",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "s0.awsstatic.com",
+        "reality": {
+          "enabled": true,
+          "public_key": "-7sCaTmfGZgRlGSZQPNHgE2UAaSrwJkz3-aqQQxblFc",
+          "short_id": "e94ed653"
+        },
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "Az香港2 | 80 | WS |",
+      "server": "hk2g.wi-fi-ai.com",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "tms.dingtalk.com"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "日本1 | 80 | WS |",
+      "server": "jp1g.wi-fi-ai.com",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "tms.dingtalk.com"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "Az日本3 | 80 | WS |",
+      "server": "jp35g.wi-fi-ai.com",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "tms.dingtalk.com"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "新加坡 | 80 | WS |",
+      "server": "sg1g.wi-fi-ai.com",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "tms.dingtalk.com"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "Az日本 | 80 | WS |",
+      "server": "jp3g.wi-fi-ai.com",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "tms.dingtalk.com"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 | 减速机 | CDN |",
+      "server": "cfuc.qingze-quick.buzz",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "cfuc.qingze-quick.buzz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国2  | Kcp |",
+      "server": "us.qingze-quick.buzz",
+      "server_port": 9443,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "alter_id": 0
+    },
+    {
+      "tag": "以下为校园网",
+      "server": "127.0.0.1",
+      "server_port": 53,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "a.189.cn"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "⌈校园网⌋  国内53",
+      "server": "120.220.19.73",
+      "server_port": 53,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "alter_id": 0
+    },
+    {
+      "tag": "⌈校园网⌋  国内67",
+      "server": "120.220.19.73",
+      "server_port": 67,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "alter_id": 0
+    },
+    {
+      "tag": "⌈校园网⌋  国内68",
+      "server": "120.220.19.73",
+      "server_port": 68,
+      "type": "vmess",
+      "uuid": "502c6101-c084-4eb3-801e-4ba1630aff36",
+      "security": "auto",
+      "network": "tcp",
+      "alter_id": 0
+    }
+  ]
+}
